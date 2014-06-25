@@ -93,9 +93,9 @@ public class MainActivity extends RosActivity {
 		rosListener = new RosListener();
 		cameraCoordinateSender = new CameraCoordinateSender();
 		String hostLocal = InetAddressFactory.newNonLoopback().getHostAddress();
-		String hostMaster = "132.203.241.193";
+		String hostMaster = "132.203.241.194";
 		URI uri = URI.create("http://" + hostMaster + ":" + "11311");
-		NodeConfiguration nodeConfiguration = NodeConfiguration.newPublic("132.203.241.208",uri);
+		NodeConfiguration nodeConfiguration = NodeConfiguration.newPublic("132.203.241.195",uri);
 		nodeMainExecutor.execute(image, nodeConfiguration);
 		nodeMainExecutor.execute(cameraCoordinateSender, nodeConfiguration);
 		nodeMainExecutor.execute(rosListener, nodeConfiguration);
@@ -161,8 +161,8 @@ public class MainActivity extends RosActivity {
 				{
 					cameraCoordinateSender.sendCloseMenu();
 				}
+				insertMenu();
 			}
-			insertMenu();
 		}
 		return true;
 	}
@@ -170,6 +170,10 @@ public class MainActivity extends RosActivity {
 	public void insertMenu(){
 		if(!isMenuUp) {
 			//unable the menu
+
+			isMenuUp = true;
+			image.setPauseNeeded(true);
+
 			LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			View menu = inflater.inflate(R.layout.menu, linearLayoutMain, false);
 
@@ -197,10 +201,6 @@ public class MainActivity extends RosActivity {
 				buttonsList.add(rowButton);
 				menuTableLayout.addView(row);
 			}
-
-			isMenuUp = true;
-			image.setPauseNeeded(true);
-
 			linearLayoutMain.addView(menu);
 		}
 		else{
@@ -238,7 +238,7 @@ public class MainActivity extends RosActivity {
 		@Override
 		public void onClick(View view) {
 			for(int i = 0; i < buttonsList.size(); i++){
-				buttonsList.get(i).setBackgroundColor(Color.BLACK);
+				buttonsList.get(i).setBackgroundResource(R.drawable.button_border);
 			}
 			Button button = (Button)view;
 			graspSelected = button.getText().toString();

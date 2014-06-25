@@ -2,9 +2,10 @@
 
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			 android:id="@+id/table_layout_menu"
-			android:layout_width="match_parent"
+			android:layout_width="300dp"
 			android:layout_height="match_parent"
-			android:layout_weight="2">
+			android:layout_weight="1"
+			android:background="@android:color/black">
 	<TableRow
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent">
@@ -50,23 +51,17 @@
 			android:layout_weight="1"
 			android:text="@string/grasp"/>
 	</TableRow>
-	<TableRow
-		android:layout_height="wrap_content"
-		android:layout_width="match_parent"
-		android:layout_weight="1">
 		<ScrollView
 			android:id="@+id/scroll_view_prise"
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_weight="1"
-			android:layout_span="1">
+			android:layout_weight="1">
 			<TableLayout
 				android:id="@+id/table_layout_prise"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content">
 			</TableLayout>
 		</ScrollView>
-	</TableRow>
 	<TableRow
 		android:layout_height="wrap_content"
 		android:layout_width="match_parent">
