@@ -14,7 +14,7 @@
  * the License.
  */
 
-include 'android_gingerbread_mr1', 'android_benchmarks' 
+include 'android_gingerbread_mr1'
 include 'android_honeycomb_mr2', 'android_acm_serial'
 include 'docs'
 include 'jaco_perception_main'

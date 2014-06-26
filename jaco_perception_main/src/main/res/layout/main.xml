@@ -5,7 +5,7 @@
 	android:layout_height="match_parent"
 	android:orientation="horizontal">
 
-	<org.ros.android.view.RosImageView
+	<org.ros.android.jaco_perception.ImageViewCustom
 		android:id="@+id/image_view"
 		android:layout_width="wrap_content"
 		android:layout_height="match_parent"

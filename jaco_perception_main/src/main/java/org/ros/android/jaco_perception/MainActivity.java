@@ -48,6 +48,8 @@ import java.util.List;
 
 import sensor_msgs.CompressedImage;
 
+import org.ros.android.jaco_perception.ImageViewCustom;
+
 /**
  * @author jeanbouch418@hotmail.com (Jean Bouchard)
  */
@@ -57,7 +59,7 @@ public class MainActivity extends RosActivity {
 
 	private RosListener rosListener;
 	public CameraCoordinateSender cameraCoordinateSender;
-	public RosImageView<CompressedImage> image;
+	public ImageViewCustom<CompressedImage> image;
 	private float ratio_touched_x;
 	private float ratio_touched_y;
 	private int imageWidthProportion;
@@ -81,7 +83,7 @@ public class MainActivity extends RosActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.main);
-		image = (RosImageView<CompressedImage>) findViewById(R.id.image_view);
+		image = (ImageViewCustom<CompressedImage>) findViewById(R.id.image_view);
 		image.setTopicName("/rgb_image_square/compressed");
 		image.setMessageType(CompressedImage._TYPE);
 		image.setMessageToBitmapCallable(new BitmapFromCompressedImage());
@@ -93,9 +95,9 @@ public class MainActivity extends RosActivity {
 		rosListener = new RosListener();
 		cameraCoordinateSender = new CameraCoordinateSender();
 		String hostLocal = InetAddressFactory.newNonLoopback().getHostAddress();
-		String hostMaster = "132.203.241.194";
+		String hostMaster = "132.203.241.154";
 		URI uri = URI.create("http://" + hostMaster + ":" + "11311");
-		NodeConfiguration nodeConfiguration = NodeConfiguration.newPublic("132.203.241.195",uri);
+		NodeConfiguration nodeConfiguration = NodeConfiguration.newPublic("132.203.241.155",uri);
 		nodeMainExecutor.execute(image, nodeConfiguration);
 		nodeMainExecutor.execute(cameraCoordinateSender, nodeConfiguration);
 		nodeMainExecutor.execute(rosListener, nodeConfiguration);

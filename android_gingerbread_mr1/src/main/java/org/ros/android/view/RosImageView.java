@@ -38,22 +38,18 @@ public class RosImageView<T> extends ImageView implements NodeMain {
 
   private String topicName;
   private String messageType;
-	private boolean pauseNeeded;
   private MessageCallable<Bitmap, T> callable;
 
   public RosImageView(Context context) {
     super(context);
-	pauseNeeded = false;
   }
 
   public RosImageView(Context context, AttributeSet attrs) {
     super(context, attrs);
-	pauseNeeded = false;
   }
 
   public RosImageView(Context context, AttributeSet attrs, int defStyle) {
     super(context, attrs, defStyle);
-	pauseNeeded = false;
   }
 
   public void setTopicName(String topicName) {
@@ -79,14 +75,12 @@ public class RosImageView<T> extends ImageView implements NodeMain {
     subscriber.addMessageListener(new MessageListener<T>() {
       @Override
       public void onNewMessage(final T message) {
-		if(!pauseNeeded){
 			post(new Runnable() {
 				@Override
 				public void run() {
 					setImageBitmap(callable.call(message));
 				}
 			});
-		}
         postInvalidate();
       }
     });
@@ -104,7 +98,4 @@ public class RosImageView<T> extends ImageView implements NodeMain {
   public void onError(Node node, Throwable throwable) {
   }
 
-	public void setPauseNeeded(boolean p_boolean){
-		pauseNeeded = p_boolean;
-	}
 }
