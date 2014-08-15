@@ -16,9 +16,10 @@ public class RosListener extends AbstractNodeMain {
 
 	private boolean allMessageReceived = false;
 	private boolean priseListReceived = false;
-	private boolean objectRecon = false;
+	private int objectRecon = -2;
 	private java.lang.String objectReconOk = "object_recon";
 	private java.lang.String objectReconNotOk = "object_not_recon";
+    private java.lang.String noObject = "no_object";
 	private java.lang.String priseList = "";
 
 
@@ -37,15 +38,27 @@ public class RosListener extends AbstractNodeMain {
 		public void onNewMessage(String string) {
 			java.lang.String messageReceived = string.getData();
 			if(messageReceived.contentEquals(objectReconOk)) {
-				objectRecon = true;
+				objectRecon = 1;
 			}
+
 			else if(messageReceived.charAt(0) == 'p'){
 				priseListReceived = true;
 				priseList = messageReceived;
 			}
-			if (objectRecon && priseListReceived){
+            else if (messageReceived.contentEquals(noObject)){
+                objectRecon = -1;
+            }
+			if (objectRecon == 1 && priseListReceived){
 				allMessageReceived = true;
 			}
+
+            else if(objectRecon == 0){
+                allMessageReceived = true;
+            }
+
+            else if(objectRecon == -1){
+                allMessageReceived = true;
+            }
 		}
 	};
 
@@ -57,4 +70,11 @@ public class RosListener extends AbstractNodeMain {
 		return allMessageReceived;
 	}
 
+    public int getObjectRecon(){
+        return objectRecon;
+    }
+    public void setDefault(){
+        allMessageReceived = false;
+        objectRecon = -2;
+    }
 }
