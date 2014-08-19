@@ -123,6 +123,11 @@ public class MainActivity extends RosActivity {
 	}
 
 
+    /*
+        Methode to look if the coordinate is in the image.
+        Return true if the coordinate are in the image range.
+     */
+
 	public boolean isInImage(float p_x, float p_y){
 		boolean validation = false;
 		int[] coords = new int[2];
@@ -151,7 +156,13 @@ public class MainActivity extends RosActivity {
 		return validation;
     }
 
+    /*
 
+        The callback when the user touch the screen.
+        It look if the coordinate are in the image range.
+        If they are, the coordinate are send to the computer.
+        Then the computer must send the message back to stop the while loop.
+     */
 	@Override
 	public boolean onTouchEvent(MotionEvent event){
 		if(event.getAction() == event.ACTION_UP)
@@ -193,6 +204,13 @@ public class MainActivity extends RosActivity {
 		}
 		return true;
 	}
+
+    /*
+        Function thats insert the menu in the screen or close it.
+        We use the inflater service to generate add a layout that we already create in the xml file.
+        We add all the button for all the grasp.
+        When we delete the menu, we concidere it's the last the inflate.
+     */
 
 	public void insertMenu(){
 		if(!isMenuUp) {
@@ -243,7 +261,10 @@ public class MainActivity extends RosActivity {
 		}
 	}
 
-
+    /*
+        The callback for the train button.
+        It only send one message.
+     */
 	public OnClickListener onClickListenerTrain = new OnClickListener() {
 		@Override
 		public void onClick(View view) {
@@ -254,6 +275,10 @@ public class MainActivity extends RosActivity {
 		}
 	};
 
+    /*
+        The call back for take it button.
+        It send the message whith the grasp selected, for now it can send a empty grasp.
+     */
 	public OnClickListener onClickListenerGo = new OnClickListener() {
 		@Override
 		public void onClick(View view) {
@@ -266,6 +291,11 @@ public class MainActivity extends RosActivity {
 		}
 	};
 
+    /*
+        The callback for all the button in the grasp section.  It update a variable that can be use
+        byy the other fonction.  The text show in the button represent the grasp selected.
+
+     */
 	public OnClickListener onClickListenerRowButton = new OnClickListener() {
 		@Override
 		public void onClick(View view) {

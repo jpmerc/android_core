@@ -15,6 +15,11 @@ import org.ros.node.topic.Publisher;
 
 import std_msgs.String;
 
+/*
+    A node that communicate with the computer.  It's with him that the tablet communicate with the
+    computer.  It can only publish.
+ */
+
 public class CameraCoordinateSender extends AbstractNodeMain {
 
 	private Publisher<std_msgs.String> publisher;

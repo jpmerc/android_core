@@ -18,6 +18,12 @@ import org.ros.node.topic.Subscriber;
 /**
  * Created by robot on 26/06/14.
  */
+
+/**
+ * This is a copy from what it have by default in ROS Java.  We made this beacause we wanted to\
+ * pause the image.  The modification is at line 73.  If the variable pauseNeeded is not to false,
+ * the image is updated.
+ */
 public class ImageViewCustom<T> extends ImageView implements NodeMain {
 
 	private String topicName;

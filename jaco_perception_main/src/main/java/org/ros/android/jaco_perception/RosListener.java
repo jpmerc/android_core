@@ -12,6 +12,15 @@ import std_msgs.String;
 /**
  * Created by robot on 18/06/14.
  */
+
+
+/**
+ * The main listener for the tablet.  It here that the tablet received all its callback from the
+ * computer.  The listener look if the object have been selected or not.
+ * If objectRecon == -1 no object have been selected.
+ * If objectRecon == 0 An object have been selected but not recognise.
+ * If objectRecon == 1 The object have been recognise.
+ */
 public class RosListener extends AbstractNodeMain {
 
 	private boolean allMessageReceived = false;
