@@ -49,8 +49,10 @@
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
 			android:layout_weight="1"
-			android:text="@string/grasp"/>
-	</TableRow>
+			android:text="@string/grasp"
+            android:id="@+id/grasp_list" />
+
+    </TableRow>
 		<ScrollView
 			android:id="@+id/scroll_view_prise"
 			android:layout_width="match_parent"

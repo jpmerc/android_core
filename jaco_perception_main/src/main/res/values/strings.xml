@@ -6,6 +6,7 @@
     <string name="status">Status</string>
     <string name="button_train">Train</string>
     <string name="button_go">Take It</string>
-    <string name="grasp">Grasp</string>
+    <string name="grasp">List of Possible Grasps</string>
+   <!-- <string name="grasp">Grasp</string> -->
 
 </resources>

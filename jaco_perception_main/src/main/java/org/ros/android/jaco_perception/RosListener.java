@@ -46,17 +46,24 @@ public class RosListener extends AbstractNodeMain {
 		@Override
 		public void onNewMessage(String string) {
 			java.lang.String messageReceived = string.getData();
-			if(messageReceived.contentEquals(objectReconOk)) {
+
+            if(messageReceived.contentEquals(objectReconNotOk)) {
+                objectRecon = 0;
+            }
+
+			else if(messageReceived.contentEquals(objectReconOk)) {
 				objectRecon = 1;
 			}
+
+            else if (messageReceived.contentEquals(noObject)){
+                objectRecon = -1;
+            }
 
 			else if(messageReceived.charAt(0) == 'p'){
 				priseListReceived = true;
 				priseList = messageReceived;
 			}
-            else if (messageReceived.contentEquals(noObject)){
-                objectRecon = -1;
-            }
+
 			if (objectRecon == 1 && priseListReceived){
 				allMessageReceived = true;
 			}

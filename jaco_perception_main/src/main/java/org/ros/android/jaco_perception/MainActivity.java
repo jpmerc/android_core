@@ -114,9 +114,9 @@ public class MainActivity extends RosActivity {
 		rosListener = new RosListener();
 		cameraCoordinateSender = new CameraCoordinateSender();
 		String hostLocal = InetAddressFactory.newNonLoopback().getHostAddress();
-		String hostMaster = "132.203.241.145";
-		URI uri = URI.create("http://" + hostMaster + ":" + "11311");
-		NodeConfiguration nodeConfiguration = NodeConfiguration.newPublic("132.203.241.141",uri);
+        String hostMaster = "132.203.241.182";
+        URI uri = URI.create("http://" + hostMaster + ":" + "11311");
+        NodeConfiguration nodeConfiguration = NodeConfiguration.newPublic("132.203.241.148",uri); //tablet address
 		nodeMainExecutor.execute(image, nodeConfiguration);
 		nodeMainExecutor.execute(cameraCoordinateSender, nodeConfiguration);
 		nodeMainExecutor.execute(rosListener, nodeConfiguration);
@@ -189,7 +189,7 @@ public class MainActivity extends RosActivity {
                         StringBuilder sb = new StringBuilder();
                         sb.append(allMessageReceived);
                         String message = sb.toString();
-                        Log.d("blablabla", message);
+                        //Log.d("blablabla", message);
                         allMessageReceived = rosListener.getAllMessagesReceived();
                     }
                 } else {
@@ -206,10 +206,10 @@ public class MainActivity extends RosActivity {
 	}
 
     /*
-        Function thats insert the menu in the screen or close it.
-        We use the inflater service to generate add a layout that we already create in the xml file.
-        We add all the button for all the grasp.
-        When we delete the menu, we concidere it's the last the inflate.
+        Function that inserts the menu in the screen or close it.
+        We use the inflater service to generate a layout that we have already created in the xml file.
+        We add all the buttons for all the possible grasps.
+        When we delete the menu, we consider it's the last inflate.
      */
 
 	public void insertMenu(){
@@ -230,17 +230,28 @@ public class MainActivity extends RosActivity {
 
 			TextView statusTexTView = (TextView) menu.findViewById(R.id.text_view_status);
             if(rosListener.getObjectRecon() == 1) {
-                statusTexTView.setText("Recon OK");
+                statusTexTView.setText("The object was recognized");
             }
+
+            else if(rosListener.getObjectRecon() == 0){
+                statusTexTView.setText("The object was not recognized");
+                buttonGo.setVisibility(View.INVISIBLE);
+                TextView graspListText = (TextView) menu.findViewById(R.id.grasp_list);
+                graspListText.setVisibility(View.INVISIBLE);
+            }
+
             else if(rosListener.getObjectRecon() == -1){
-                statusTexTView.setText("Not Recon");
+                statusTexTView.setText("No object was selected");
             }
 
 			TableLayout menuTableLayout = (TableLayout) menu.findViewById(R.id.table_layout_prise);
 
 			String graspList = rosListener.getPriseList();
-			graspList = graspList.substring(2, graspList.length());
-			String[] grapsItem = graspList.split(";");
+            String[] grapsItem = new String[0];
+            if(graspList.length() > 2){
+                graspList = graspList.substring(2, graspList.length());
+                grapsItem = graspList.split(";");
+            }
 			graspSelected = "";
 			buttonsList.clear();
 			for(int i = 0; i< grapsItem.length; i++){
