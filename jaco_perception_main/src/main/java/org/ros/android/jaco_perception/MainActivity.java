@@ -73,6 +73,7 @@ public class MainActivity extends RosActivity {
 	private boolean isMenuUp = false;
 	private boolean allMessageReceived = false;
 	private String graspSelected = "";
+    private int graspSelectedIndex;
 	private List<Button> buttonsList = new ArrayList<Button>();
 
 	private LinearLayout linearLayoutMain;
@@ -297,24 +298,30 @@ public class MainActivity extends RosActivity {
 			String sendMessage = new String("g_take_it");
 			StringBuilder stringBuilder = new StringBuilder();
 			stringBuilder.append("g_");
-			stringBuilder.append(graspSelected);
+			stringBuilder.append(String.valueOf(graspSelectedIndex));
+
 			cameraCoordinateSender.sendMessage(stringBuilder.toString());
 		}
 	};
 
     /*
         The callback for all the button in the grasp section.  It update a variable that can be use
-        byy the other fonction.  The text show in the button represent the grasp selected.
+        by the other fonction.  The text show in the button represent the grasp selected.
 
      */
 	public OnClickListener onClickListenerRowButton = new OnClickListener() {
 		@Override
 		public void onClick(View view) {
-			for(int i = 0; i < buttonsList.size(); i++){
+            for(int i = 0; i < buttonsList.size(); i++){
 				buttonsList.get(i).setBackgroundResource(R.drawable.button_border);
+                buttonsList.get(i).setSelected(false);
 			}
+
 			Button button = (Button)view;
+            button.setSelected(true);
 			graspSelected = button.getText().toString();
+            String str[] = graspSelected.split("_");
+            graspSelectedIndex =  Integer.getInteger(str[1]).intValue();
 			button.setBackgroundColor(Color.RED);
 		}
 	};
